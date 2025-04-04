@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Rahulsaba/password_node#readme",
+  "bugs": {
+    "url": "https://github.com/Rahulsaba/password_node/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rahulsaba/password_node.git"
+  },
+  "license": "ISC",
+  "author": "Rahulsaba",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch --env-file=.env index.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.5.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "prisma": "^6.5.0"
+  }
+}
