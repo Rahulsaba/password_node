@@ -1,10 +1,12 @@
 
-const express = require('express');
-const { createUser ,getUsers} = require('../controlers.js');
-const router = express.Router()
+const router = require('express').Router()
+const { createMedia ,createUser,getMedia ,getUsers} = require('../controlers.js');
 
 
-router.post('/users', createUser);
+
+router.post('/createmedia', createMedia);
+router.get('/createmedia', getMedia);
+router.post('/createuser', createUser);
 router.get('/users', getUsers);
 // router.get('/:userid', getUser);
 // router.delete('/:userid', deleteUser);

@@ -12,3 +12,8 @@ datasource db {
      name  String
      email String @unique
    }
+   model SocialMedia {
+     id    String @id @default(auto()) @map("_id") @db.ObjectId
+     socialmedia  String
+     password String 
+   }

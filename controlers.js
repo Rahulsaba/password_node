@@ -1,11 +1,38 @@
-const express = require('express');
+
 const prisma = require('./db.config.js');
-const app = express();
+
+
+const createMedia = async (req, res) => {
+    const { socialmedia, password } = await req.body;
+    console.log(req.body, 'req-res');
+
+    try {
+        const user = await prisma.SocialMedia.create({
+            data: { socialmedia, password },
+        });
+        res.json(user);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+        // res.status(500).json({ error: "network error" });
+    }
+}
+
+const getMedia = async (req, res) => {
+    try {
+        const users = await prisma.SocialMedia.findMany();
+        res.status(201).json({data: users});
+
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+        // res.status(500).json({ error: "network error" });
+    }
+}
+
 
 const createUser = async (req, res) => {
     const { name, email } = req.body;
-    console.log(req.body , 'req-res');
-    
+    console.log(...req, 'req-res');
+
     try {
         const user = await prisma.user.create({
             data: { name, email },
@@ -13,6 +40,7 @@ const createUser = async (req, res) => {
         res.json(user);
     } catch (error) {
         res.status(400).json({ error: error.message });
+        res.status(500).json({ error: "network error" });
     }
 }
 
@@ -74,6 +102,8 @@ const getUsers = async (req, res) => {
 
 
 module.exports = {
+    createMedia,
+    getMedia,
     createUser,
     getUsers
 };
