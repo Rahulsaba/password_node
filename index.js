@@ -9,8 +9,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const allowedOrigins = [
-  'https://savepassword.vercel.app', // Production
-  'http://localhost:5173'            // Local development
+  'https://password-node.vercel.app', // Production
+  'https://password-node.vercel.app'            // Local development
 ];
 
 app.use(cors({
@@ -38,9 +38,10 @@ app.use(cors({
 
 app.use('/api', userRoutes)
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
 
-
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+}
