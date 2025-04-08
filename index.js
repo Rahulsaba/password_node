@@ -7,10 +7,25 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+const allowedOrigins = [
+  'https://savepassword.vercel.app', // Production
+  'http://localhost:5173'            // Local development
+];
+
 app.use(cors({
-  origin: "http://localhost:5173", // allow Vite frontend to access
-  credentials: true,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
 }));
+
+
 // app.use(
 //   helmet({
 //     contentSecurityPolicy: false,
@@ -22,7 +37,7 @@ app.use(cors({
 
 
 app.use('/api', userRoutes)
-    
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

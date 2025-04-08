@@ -4,13 +4,11 @@ const prisma = require('./db.config.js');
 
 const createMedia = async (req, res) => {
     const { socialmedia, password } = await req.body;
-    console.log(req.body, 'req-res');
-
     try {
-        const user = await prisma.SocialMedia.create({
+         await prisma.SocialMedia.create({
             data: { socialmedia, password },
         });
-        res.json(user);
+        res.status(201).json({ message: 'Media Created successfully' });
     } catch (error) {
         res.status(400).json({ error: error.message });
         // res.status(500).json({ error: "network error" });
@@ -28,6 +26,22 @@ const getMedia = async (req, res) => {
     }
 }
 
+// Delete a user by ID
+
+const deleteMedia = async (req, res) => {
+    const { id } = req.params;
+    console.log(id, 'id-backend');
+    try {
+        await prisma.SocialMedia.delete({
+            where: { id },
+        });
+        res.status(201).json({ message: 'Media deleted successfully' });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
+
 
 const createUser = async (req, res) => {
     const { name, email } = req.body;
@@ -43,6 +57,8 @@ const createUser = async (req, res) => {
         res.status(500).json({ error: "network error" });
     }
 }
+
+
 
 const getUsers = async (req, res) => {
     try {
@@ -87,23 +103,12 @@ const getUsers = async (req, res) => {
 //     }
 // });
 
-// Delete a user by ID
-// app.delete('/users/:id', async (req, res) => {
-//     const { id } = req.params;
-//     try {
-//         await prisma.user.delete({
-//             where: { id },
-//         });
-//         res.json({ message: 'User deleted successfully' });
-//     } catch (error) {
-//         res.status(500).json({ error: error.message });
-//     }
-// });
 
 
 module.exports = {
     createMedia,
     getMedia,
+    deleteMedia,
     createUser,
     getUsers
 };
