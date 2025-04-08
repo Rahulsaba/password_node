@@ -9,8 +9,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const allowedOrigins = [
-  'https://password-node.vercel.app', // Production
-  'https://password-node.vercel.app'            // Local development
+  'https://savepassword.vercel.app', // Production
+  'http://localhost:5173'            // Local development
 ];
 
 app.use(cors({
