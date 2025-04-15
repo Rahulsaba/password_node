@@ -5,12 +5,12 @@ const { createMedia,
     getMedia,
     getUsers,
     deleteMedia } = require('../controlers.js');
+const { protectedRoutes } = require('../middleware/protectedRoutes.js');
 
 
 router.post('/createmedia', createMedia);
-router.get('/createmedia', getMedia);
+router.get('/createmedia',protectedRoutes, getMedia);
 router.delete('/deletemedia/:id', deleteMedia);
-
 
 
 router.post('/createuser', createUser);
